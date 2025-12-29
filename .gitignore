@@ -1,0 +1,47 @@
+### --- Python (FastAPI) --- ###
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+env/
+venv/
+ENV/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+# Базы данных (если используете SQLite локально)
+*.db
+*.sqlite3
+
+### --- Node.js (Nuxt) --- ###
+node_modules/
+.nuxt/
+.output/
+.nitro/
+dist/
+.cache/
+.npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+### --- Docker --- ###
+# Игнорируем локальные данные БД, чтобы не пушить их в репозиторий
+pgdata/
+mysql_data/
+
+### --- IDE & OS --- ###
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+### --- Environment Variables --- ###
+# Никогда не пушьте секреты!
+.env
+.env.*
+!.env.example # Этот файл оставляем как шаблон для других разработчиков
