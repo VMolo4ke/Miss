@@ -3,9 +3,9 @@ services:
     image: postgres:16-alpine
     restart: always
     environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER:-user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-pass}
+      POSTGRES_DB: ${DB_NAME:-messenger_db}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -18,21 +18,26 @@ services:
     restart: always
 
   backend:
-    image: ghcr.io/${GITHUB_REPOSITORY}/backend:latest
+    # Важно: имя репозитория тут должно быть маленькими буквами
+    image: ghcr.io/vmolo4ke/miss/backend:latest
     restart: always
     env_file: .env
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
     environment:
-      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - DATABASE_URL=postgresql://${DB_USER:-user}:${DB_PASSWORD:-pass}@db:5432/${DB_NAME:-messenger_db}
 
   frontend:
-    image: ghcr.io/${GITHUB_REPOSITORY}/frontend:latest
+    image: ghcr.io/vmolo4ke/miss/frontend:latest
     restart: always
     env_file: .env
     environment:
-      - NUXT_PUBLIC_API_BASE=https://${DOMAIN}/api
+      - NUXT_PUBLIC_API_BASE=https://${DOMAIN:-localhost}/api
+    depends_on:
+      - backend
 
   nginx:
     image: nginx:alpine
