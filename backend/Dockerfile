@@ -8,15 +8,11 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     uv sync --frozen --no-install-project --no-dev
 
-# Этап 2: Финальный образ
 FROM python:3.12-alpine
 WORKDIR /app
-# Копируем виртуальное окружение из builder
 COPY --from=builder /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH"
-
-# Копируем исходный код
 COPY . .
-
-# Запуск (используем 4 воркера для пет-проекта оптимально)
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+EXPOSE 8000
+# Оптимально для FastAPI/Uvicorn под нагрузкой
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4", "--proxy-headers"]

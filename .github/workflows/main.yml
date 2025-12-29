@@ -4,32 +4,42 @@ on:
   push:
     branches: [master]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
-  check-build:
+  build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build Backend Test
+      - name: Build and push Backend
         uses: docker/build-push-action@v5
         with:
           context: ./backend
-          push: false
-          load: true
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/backend:latest
 
-      - name: Build Frontend Test
+      - name: Build and push Frontend
         uses: docker/build-push-action@v5
         with:
           context: ./frontend
-          push: false
-          load: true
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/frontend:latest
 
   deploy:
-    needs: check-build
+    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: Deploy via SSH
@@ -40,16 +50,11 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /app/miss
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-            # Обновляем код
-            if [ -d ".git" ]; then
-              git pull origin master
-            else
-              git clone https://github.com/VMolo4ke/Miss.git .
-            fi
+            # Обновляем docker-compose и конфиги nginx
+            git pull origin master 
 
-            # Запускаем всё
-            docker compose up -d --build
-
-            # Чистим мусор (старые слои образов)
+            docker compose pull
+            docker compose up -d
             docker image prune -f
