@@ -1,0 +1,53 @@
+$font-main: "Manrope", sans-serif;
+
+:root {
+  --bg-main: #2c2420; // Глубокий кофейный (фон за телефоном)
+  --bg-app: #3c2f2a; // Фон самого приложения
+  --bg-chat-item: #4e3d35; // Фон плашки чата в списке
+  --text-primary: #ede0d4; // Молочный текст (основной)
+  --text-secondary: #b08968; // Коричневый текст (второстепенный)
+  --accent: #a67c52; // Цвет карамели (кнопки, иконки)
+  --bubble-out: #7f5539; // Твое сообщение (насыщенный кофе)
+  --bubble-in: #4e3524; // Чужое сообщение (темный шоколад)
+  --border-color: #58443b; // Разделители
+
+  font-family: $font-main;
+}
+
+[data-theme="dark"] {
+  --bg-main: #020617;
+  --bg-app: #0f172a;
+  --bg-chat-item: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --accent: #3b82f6;
+  --bubble-out: #2563eb;
+  --bubble-in: #334155;
+  --border-color: #1e293b;
+}
+
+[data-theme="light"] {
+  --bg-main: #f8fafc;
+  --bg-app: #ffffff;
+  --bg-chat-item: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --accent: #2563eb;
+  --bubble-out: #dbeafe;
+  --bubble-in: #f1f5f9;
+  --border-color: #e2e8f0;
+}
+
+$bg-main: var(--bg-main);
+$bg-app: var(--bg-app);
+$bg-chat-item: var(--bg-chat-item);
+$text-primary: var(--text-primary);
+$text-secondary: var(--text-secondary);
+$accent: var(--accent);
+$bubble-out: var(--bubble-out);
+$bubble-in: var(--bubble-in);
+$border-color: var(--border-color);
+
+$max-width: 440px;
+$transition-speed: 0.3s;
+$border-radius: 16px;

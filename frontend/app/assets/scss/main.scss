@@ -1,0 +1,9 @@
+@use "null";
+@use "vars";
+
+body {
+    background: $bg-main;
+    font-family: $font-main;
+    -webkit-font-smoothing: antialiased; // Делает шрифт более гладким на Mac/iPhone
+    -moz-osx-font-smoothing: grayscale;
+}
