@@ -21,8 +21,9 @@ class Chat(Base, TimestampMixin):
     type: Mapped[ChatType] = mapped_column(default=ChatType.DIRECT)
     name: Mapped[str | None] = mapped_column(String(100)) # Только для групп
 
-    members: Mapped[list["Membership"]] = relationship(back_populates="chat")
-    messages: Mapped[list["Message"]] = relationship(back_populates="chat")
+    members: Mapped[list["Membership"]] = relationship("Membership", back_populates="chat")
+    messages: Mapped[list["Message"]] = relationship("Message", back_populates="chat")
+
 
 class Membership(Base):
     __tablename__ = "memberships"
@@ -33,5 +34,5 @@ class Membership(Base):
     is_pinned: Mapped[bool] = mapped_column(Boolean, default=False)
     notifications_enabled: Mapped[bool] = mapped_column(Boolean, default=True)
 
-    user: Mapped["User"] = relationship(back_populates="memberships")
-    chat: Mapped["Chat"] = relationship(back_populates="members")
+    user: Mapped["User"] = relationship("User", back_populates="memberships")
+    chat: Mapped["Chat"] = relationship("Chat", back_populates="members")

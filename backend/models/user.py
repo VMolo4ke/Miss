@@ -19,4 +19,4 @@ class User(Base, TimestampMixin):
     avatar_url: Mapped[str | None] = mapped_column(String(255))
     hashed_password: Mapped[str | None] = mapped_column(String(1024)) # Для безопасности
 
-    memberships: Mapped[list["Membership"]] = relationship(back_populates="user")
+    memberships: Mapped[list["Membership"]] = relationship("Membership", back_populates="user")

@@ -33,7 +33,7 @@ class Message(Base, TimestampMixin):
     file_size: Mapped[int | None] = mapped_column()
     duration: Mapped[int | None] = mapped_column() # Для голосовых/видео
 
-    chat: Mapped["Chat"] = relationship(back_populates="messages")
+    chat: Mapped["Chat"] = relationship("Chat", back_populates="messages")
     
     # Индекс для быстрого поиска по сообщениям
     __table_args__ = (

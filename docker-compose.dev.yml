@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD:-password123}
       POSTGRES_DB: ${DB_NAME:-miss_db}
     ports:
-      - "5432:5432" # Пробрасываем порт для подключения с вашего ПК
+      - "5432:5432"
     volumes:
       - pgdata_dev:/var/lib/postgresql/data
 
