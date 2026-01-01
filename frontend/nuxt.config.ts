@@ -1,6 +1,35 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/google-fonts", "@pinia/nuxt"],
+  modules: ["@nuxtjs/google-fonts", "@pinia/nuxt", "@vite-pwa/nuxt"],
+  pwa: {
+    manifest: {
+      name: "Miss",
+      short_name: "Miss",
+      description: "Тут вам не соскучится",
+      theme_color: "#2c2420",
+      background_color: "#2c2420",
+      display: "standalone",
+      icons: [
+        {
+          src: "icons/icon-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+      ],
+    },
+    workbox: {
+      navigateFallback: "/",
+    },
+    devOptions: {
+      enabled: true,
+      type: "module",
+    },
+  },
   googleFonts: {
     families: {
       Manrope: [400, 500, 700],
