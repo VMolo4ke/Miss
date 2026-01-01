@@ -137,6 +137,7 @@ watch(number, (newVal, oldVal) => {
     margin: 0 0 10px 7%;
     color: $text-secondary;
     cursor: pointer;
+    user-select: none;
   }
   &__button {
     margin: 10px 0 0 0;
