@@ -10,18 +10,20 @@ export default defineNuxtConfig({
       theme_color: "#2c2420",
       background_color: "#2c2420",
       display: "standalone",
-      start_url: "/auth",
+      start_url: "/",
       id: "/",
       icons: [
         {
           src: "/icons/icon-192x192.png",
           sizes: "192x192",
           type: "image/png",
+          purpose: "any maskable",
         },
         {
           src: "/icons/icon-512x512.png",
           sizes: "512x512",
           type: "image/png",
+          purpose: "any maskable",
         },
       ],
     },
@@ -31,6 +33,11 @@ export default defineNuxtConfig({
     devOptions: {
       enabled: true,
       type: "module",
+    },
+  },
+  app: {
+    head: {
+      link: [{ rel: "manifest", href: "/manifest.webmanifest" }],
     },
   },
   googleFonts: {
