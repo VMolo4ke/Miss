@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: "autoUpdate",
     manifest: {
-      name: "Miss",
+      name: "Missenger",
       short_name: "Miss",
       description: "Тут вам не соскучится",
       theme_color: "#2c2420",
