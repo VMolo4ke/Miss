@@ -46,11 +46,9 @@ watch(number, (newVal, oldVal) => {
           :type="isPasswordVisible ? 'text' : 'password'"
           :placeholder="isLoginPage ? 'Введите пароль' : 'Придумайте пароль'"
         />
-        <button
-          type="button"
-          @click="togglePassword"
-          class="register__eye"
-        ></button>
+        <button type="button" @click="togglePassword" class="register__eye">
+          <div></div>
+        </button>
       </div>
 
       <p class="register__toggle" @click="isLoginPage = !isLoginPage">
@@ -108,20 +106,29 @@ watch(number, (newVal, oldVal) => {
   }
   &__eye {
     position: absolute;
-    width: 22px;
-    height: 22px;
-    right: 27px;
-    top: 9px;
-    background-color: $text-primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    right: 5%;
+    top: 0;
 
-    mask-image: url("/images/eye.svg");
-    mask-repeat: no-repeat;
-    mask-position: center;
-    mask-size: contain;
-    -webkit-mask-image: url("/images/eye.svg");
+    & div {
+      background-color: $text-primary;
+      width: 22px;
+      height: 22px;
+      mask-image: url("/images/eye.svg");
+      mask-repeat: no-repeat;
+      mask-position: center;
+      mask-size: contain;
+      -webkit-mask-image: url("/images/eye.svg");
+    }
 
     &:hover {
-      background-color: $accent;
+      & div {
+        background-color: $accent;
+      }
     }
   }
   &__toggle {
