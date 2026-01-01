@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   modules: ["@nuxtjs/google-fonts", "@pinia/nuxt", "@vite-pwa/nuxt"],
   pwa: {
+    registerType: "autoUpdate",
     manifest: {
       name: "Miss",
       short_name: "Miss",
@@ -9,6 +10,8 @@ export default defineNuxtConfig({
       theme_color: "#2c2420",
       background_color: "#2c2420",
       display: "standalone",
+      start_url: "/auth",
+      id: "/",
       icons: [
         {
           src: "/icons/icon-192x192.png",
