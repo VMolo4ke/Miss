@@ -12,9 +12,6 @@ class UserCreate(BaseModel):
         
         if len(digits) == 11 and digits.startswith("8"):
             digits = "7" + digits[1:]
-        
-        elif len(digits) == 10:
-            digits = "7" + digits
             
         if len(digits) != 11:
             raise ValueError("Номер телефона должен содержать 11 цифр")
