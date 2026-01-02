@@ -1,12 +1,17 @@
 export default defineNuxtRouteMiddleware((to, from) => {
+  const authStore = useAuthStore()
   const token = useCookie("auth_token").value;
   const authPage = "/auth";
 
-  if (!token && to.path !== authPage) {
-    return navigateTo(authPage);
+  const publicPath = [authPage, '/docs']
+
+  const isPublicPath = publicPath.some(path => to.path.startsWith(path))
+
+  if (!authStore.isAuthenticated && !isPublicPath) {
+    return navigateTo(authPage)
   }
 
-  if (token && to.path === authPage) {
-    return navigateTo("/");
+  if (authStore.isAuthenticated && to.path === authPage) {
+    return navigateTo('/')
   }
 });
